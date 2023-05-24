@@ -10,9 +10,17 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Christina Barberi",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  }
+  },
+  "dependencies": {
+    "apollo-client": "^2.6.10",
+    "apollo-server-express": "^2.15.0",
+    "graphql": "^15.8.0"
+  },
+"engines": {
+  "node": "16.x"
+ }
 }
