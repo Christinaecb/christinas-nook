@@ -1,21 +1,39 @@
-const express = require('express');
-const path = require('path');
-const db = require('./config/connection');
-const routes = require('./routes');
+const jwt = require('jsonwebtoken');
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+// set token secret and expiration date
+const secret = 'mysecretsshhhhh';
+const expiration = '2h';
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+module.exports = {
+  // function for our authenticated routes
+  authMiddleware: function ({ req }) {
+    // allows token to be sent via  req.query or headers
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-// if we're in production, serve client/build as static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
+    // ["Bearer", "<tokenvalue>"]
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
+    }
+    // if no token passed, return the req
+    if (!token) {
+      return req;
+    }
 
-app.use(routes);
+    // verify token and get user data out of it
+    try {
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = data;
+    } catch {
+      console.log('Invalid token');
+    }
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
+    // return the request object,
+    // which is then passed to the resolver as `context`
+    return req;
+  },
+  signToken: function ({ username, email, _id }) {
+    const payload = { username, email, _id };
+    
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
+};
