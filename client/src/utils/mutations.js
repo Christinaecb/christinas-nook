@@ -1,7 +1,5 @@
-// initial setup for Apollo Client for React
 import { gql } from '@apollo/client';
 
-// boilerplate for User login controls
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -9,12 +7,21 @@ export const LOGIN_USER = gql`
       user {
         _id
         username
+        email
+        bookCount
+        savedBooks {
+          bookId
+          authors
+          description
+          title
+          image
+          link
+        }
       }
     }
   }
 `;
 
-// modify for refactored code
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
@@ -25,25 +32,25 @@ export const ADD_USER = gql`
         email
         bookCount
         savedBooks {
-          authors
           bookId
+          authors
+          description
+          title
           image
           link
-          title
-          description
         }
       }
     }
   }
 `;
 
-// new code for refactor
 export const SAVE_BOOK = gql`
-  mutation saveBook($newBook: InputBook!) {
-    saveBook(newBook: $newBook) {
+  mutation saveBook($input: bookInput!) {
+    saveBook(input: $input) {
       _id
       username
       email
+      bookCount
       savedBooks {
         bookId
         authors
@@ -56,13 +63,13 @@ export const SAVE_BOOK = gql`
   }
 `;
 
-// new code for refactor
 export const REMOVE_BOOK = gql`
-  mutation removeBook($bookId: ID!) {
+  mutation removeBook($bookId: String!) {
     removeBook(bookId: $bookId) {
       _id
       username
       email
+      bookCount
       savedBooks {
         bookId
         authors
