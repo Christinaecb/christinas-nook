@@ -3,7 +3,7 @@ MERN Challenge
 
 ## Description
 
-In Module 21, we were tasked with refactoring a Book Search Engine. This application has been developed using the MERN stack, incorporating a React front end, MongoDB database, Node.js, Express.js, and API. It was initially configured to enable users to save book searches on the back end.
+In Module 21, we were tasked with refactoring a Book Search Engine. This application has been developed using the MERN stack, incorporating a React front end, MongoDB database, Node.js, Express.js, and API. It was initially configured to enable users to save book searches on the back end
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ This project is licensed under the MIT license. Click [here](https://opensource.
 
 ## Questions:
 ## Email:
-If you have any questions email me directly at christina.e.c.barberi@gmail.com.
+If you have any questions please email me at christina.e.c.barberi@gmail.com.
 
 ## Github:
 Please visit my [GitHub](https://github.com/Christinaecb) to view my other work.
