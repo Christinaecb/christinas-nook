@@ -1,12 +1,17 @@
 // route to get logged in user's info (needs the token)
 export const getMe = (token) => {
-    return fetch('/api/users/me', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  };
+  return fetch('/api/users/me', {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+    return response.json();
+  });
+};
   
   export const createUser = (userData) => {
     return fetch('/api/users', {
