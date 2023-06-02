@@ -42,20 +42,24 @@ export const loginUser = (userData) => {
     return response.json();
   });
 };
-
   
   // save book data for a logged in user
-  export const saveBook = (bookData, token) => {
-    return fetch('/api/users', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(bookData),
-    });
-  };
-  
+export const saveBook = (bookData, token) => {
+  return fetch('/api/users/books', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(bookData),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+    return response.json();
+  });
+};
+
   // remove saved book data for a logged in user
   export const deleteBook = (bookId, token) => {
     return fetch(`/api/users/books/${bookId}`, {
