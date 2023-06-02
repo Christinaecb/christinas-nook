@@ -1,7 +1,5 @@
-// React setup
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-// import the 'auth' setup
 import Auth from '../utils/auth';
 // need these to refactor code for GraphQL API
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
@@ -9,56 +7,52 @@ import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
 
 const SearchBooks = () => {
-  // create state for holding returned Google api data
-  const [searchedBooks, setSearchedBooks] = useState([]);
-  // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
-
-  // create state to hold saved bookId values
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-  // new
+  const [searchedBooks, setSearchedBooks] = useState([]); // create state for holding returned Google api data
+  const [searchInput, setSearchInput] = useState('');// create state for holding our search field data
+  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds()); // create state to hold saved bookId values
   const [saveBook] = useMutation(SAVE_BOOK);
 
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
+  
   useEffect(() => {
-    return () => saveBookIds(savedBookIds);
-  });
+    return () => {
+      saveBookIds(savedBookIds);
+    };
+  }, [savedBookIds]);
 
     // create method to search for books and set state on form submit
-    const handleFormSubmit = async (event) => {
-      event.preventDefault();
-  
-      if (!searchInput) {
-        return false;
+    async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    if (!searchInput) {
+      return false;
+    }
+    // GraphQL API uses 'fetch'
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
+      );
+
+      if (!response.ok) {
+        throw new Error('something went wrong!');
       }
-      // GraphQL API uses 'fetch'
-      try {
-        const response = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
-        );
-  
-        if (!response.ok) {
-          throw new Error('something went wrong!');
-        }
-        // response for 'fetch' is here
-        const { items } = await response.json();
-  
-        const bookData = items.map((book) => ({
-          bookId: book.id,
-          authors: book.volumeInfo.authors || ['No author to display'],
-          title: book.volumeInfo.title,
-          description: book.volumeInfo.description,
-          image: book.volumeInfo.imageLinks?.thumbnail || '',
-        }));
-        // save searched books to react State
-        setSearchedBooks(bookData);
-        // clear the search input field
-        setSearchInput('');
-      } catch (err) {
-        console.error(err);
-      }
-    };
+      // response for 'fetch' is here
+      const { items } = await response.json();
+
+      const bookData = items.map((book) => ({
+        bookId: book.id,
+        authors: book.volumeInfo.authors || ['No author to display'],
+        title: book.volumeInfo.title,
+        description: book.volumeInfo.description,
+        image: book.volumeInfo.imageLinks?.thumbnail || '',
+      }));
+      // save searched books to react State
+      setSearchedBooks(bookData);
+      // clear the search input field
+      setSearchInput('');
+    } catch (err) {
+      console.error(err);
+    }
+  }
   
     // create function to handle saving a book to our database
     const handleSaveBook = async (bookId) => {
