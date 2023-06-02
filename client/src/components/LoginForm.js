@@ -38,7 +38,7 @@ const LoginForm = () => {
       event.stopPropagation();
     }
     setValidated(true); // set form validation to true
-    
+
     // try-catch block for error handling
     try {
       const response = await loginUser({
@@ -67,7 +67,7 @@ const LoginForm = () => {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
-            type='text'
+            type='email' // Updated to type 'email' for email validation
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
