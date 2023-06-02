@@ -61,14 +61,18 @@ export const saveBook = (bookData, token) => {
 };
 
   // remove saved book data for a logged in user
-  export const deleteBook = (bookId, token) => {
-    return fetch(`/api/users/books/${bookId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  };
+export const deleteBook = (bookId, token) => {
+  return fetch(`/api/users/books/${bookId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+  });
+};
   
   // make a search to google books api
   // https://www.googleapis.com/books/v1/volumes?q=harry+potter
