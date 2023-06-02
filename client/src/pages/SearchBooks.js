@@ -19,23 +19,20 @@ const SearchBooks = () => {
     };
   }, [savedBookIds]);
 
-    // create method to search for books and set state on form submit
-    async function handleFormSubmit(event) {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     if (!searchInput) {
       return false;
     }
-    // GraphQL API uses 'fetch'
+
     try {
-      const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
-      );
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error('Something went wrong!');
       }
-      // response for 'fetch' is here
+
       const { items } = await response.json();
 
       const bookData = items.map((book) => ({
@@ -45,14 +42,13 @@ const SearchBooks = () => {
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
-      // save searched books to react State
+
       setSearchedBooks(bookData);
-      // clear the search input field
       setSearchInput('');
     } catch (err) {
       console.error(err);
     }
-  }
+  };
   
     // create function to handle saving a book to our database
     const handleSaveBook = async (bookId) => {
