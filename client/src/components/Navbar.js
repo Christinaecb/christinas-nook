@@ -7,7 +7,6 @@ import LoginForm from './LoginForm';
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
-  // set modal display state
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -61,10 +60,10 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey='login'>
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                <LoginForm handleModalClose={() => setShowModal(false)} />  {/* Added handleModalClose prop */}
               </Tab.Pane>
               <Tab.Pane eventKey='signup'>
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                <SignUpForm handleModalClose={() => setShowModal(false)} /> {/* Added handleModalClose prop */}
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>
