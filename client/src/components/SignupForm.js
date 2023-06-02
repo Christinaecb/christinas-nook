@@ -40,11 +40,8 @@ const SignupForm = () => {
       console.error(err);
     };
 
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
+    setValidated(true); // Set the state variable 'validated' to true, indicating that the form has been validated
+    setUserFormData({ username: '', email: '', password: '' }); // Update the state variable 'userFormData' by setting the username, email, and password properties to empty strings
   };
 
   return (
