@@ -14,7 +14,7 @@ In Module 21, we were tasked with refactoring a Book Search Engine. This applica
 * [Github](#Github)
 
 ## Deployed Application
-You can then navigate to [placeholder] in your browser to use the application.
+Link to deployed application [https://christinas-nook.herokuapp.com/]
 
 ## Screenshot:
 
