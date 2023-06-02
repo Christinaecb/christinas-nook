@@ -13,15 +13,20 @@ export const getMe = (token) => {
   });
 };
   
-  export const createUser = (userData) => {
-    return fetch('/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-  };
+export const createUser = (userData) => {
+  return fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error('Something went wrong!');
+    }
+    return response.json();
+  });
+};
   
   export const loginUser = (userData) => {
     return fetch('/api/users/login', {
