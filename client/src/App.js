@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -31,21 +30,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(), // Create an in-memory cache for caching GraphQL query results
 });
 
-function App() {
+const App = () => {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
+        <div>
           <Navbar /> {/* Render the Navbar component */}
           <Routes>
             <Route path='/' element={<SearchBooks />} /> {/* Render the SearchBooks component for the root path */}
             <Route path='/saved' element={<SavedBooks />} /> {/* Render the SavedBooks component for the '/saved' path */}
             <Route path='*' element={<h1 className='display-2'>Wrong page!</h1>} /> {/* Render a 'Wrong page!' message for any other unmatched paths */}
           </Routes>
-        </>
+        </div>
       </Router>
     </ApolloProvider>
   );
-}
+};
 
 export default App;
