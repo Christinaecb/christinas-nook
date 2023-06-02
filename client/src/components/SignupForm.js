@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-
-// import mutation functionality
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
-  // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-  // set state for form validation
-  const [validated] = useState(false);
-  // set state for alert
-  const [showAlert, setShowAlert] = useState(false);
-
-  // use mutation functionality to add a user
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });// set initial form state
+  const [validated] = useState(false);// set state for form validation
+  const [showAlert, setShowAlert] = useState(false); // set state for alert
   const [addUser, { error }] = useMutation(ADD_USER);
   
   useEffect(() => {
