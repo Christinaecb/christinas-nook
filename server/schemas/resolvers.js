@@ -7,10 +7,10 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         // Retrieve user data if logged in
-        data = await User.findOne({ _id: context.user._id }).select('-__v -password');
+       const data = await User.findOne({ _id: context.user._id }).select('-__v -password');
         return data; // Return the user data
       }
-      throw new AuthenticationError('You need to be logged in!'); // Throw an error if not logged in
+      throw new AuthenticationError('You need to be logged in!'); 
     },
   },
 
@@ -22,7 +22,6 @@ const resolvers = {
       return { token, user };
     },
     login: async (parent, { email, password }) => {
-      // User login
       const user = await User.findOne({ email });
 
       if (!user) {
