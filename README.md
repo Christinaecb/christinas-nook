@@ -18,7 +18,7 @@ You can then navigate to [placeholder] in your browser to use the application.
 
 ## Screenshot:
 
-![Screenshot of Application on Desktop](./assets/screenshot/Screenshot%20.jpg)
+![Screenshot of Application on Desktop](./assets/screenshot/newscreenshot.jpg)
 
 ## License
 This project is licensed under the MIT license. Click [here](https://opensource.org/licenses/MIT) for more information.<br>
