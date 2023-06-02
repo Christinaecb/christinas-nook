@@ -25,21 +25,18 @@ const SignupForm = () => {
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
-    }
-
-    // try-catch block for error handling
-    try {
-      const { data } = await addUser({
-        variables: { ...userFormData },
-      });
+    } else {
+      try {
+        const { data } = await addUser({
+          variables: { ...userFormData },
+        });
 
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
-    };
-
+    }
+  }
     setValidated(true); // Set the state variable 'validated' to true, indicating that the form has been validated
     setUserFormData({ username: '', email: '', password: '' }); // Update the state variable 'userFormData' by setting the username, email, and password properties to empty strings
   };
