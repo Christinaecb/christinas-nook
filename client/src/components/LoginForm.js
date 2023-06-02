@@ -37,6 +37,8 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+    setValidated(true); // set form validation to true
+    
     // try-catch block for error handling
     try {
       const response = await loginUser({

@@ -11,7 +11,6 @@ In Module 21, we were tasked with refactoring a Book Search Engine. This applica
 * [Screenshot](#screenshot)
 * [License](#license)
 * [Questions](#Questions)
-* [Email](#Email)
 * [Github](#Github)
 
 ## Deployed Application
@@ -27,7 +26,6 @@ This project is licensed under the MIT license. Click [here](https://opensource.
 
 
 ## Questions:
-## Email:
 If you have any questions please email me at christina.e.c.barberi@gmail.com.
 
 ## Github:
