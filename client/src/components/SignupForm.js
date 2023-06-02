@@ -10,14 +10,10 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false); // set state for alert
   const [addUser, { error }] = useMutation(ADD_USER);
   
-  useEffect(() => {
-    if (error) {
-      setShowAlert(true);
-    } else {
-      setShowAlert(false);
-    }
+  useEffect(() => { //triggers whenever the 'error' dependency changes
+    setShowAlert(error ? true : false);
   }, [error]);
-
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
