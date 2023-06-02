@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async () => { // removed typeDefs and resolvers
   await server.start(); // Await for the database connection to open before starting the server
   server.applyMiddleware({ app });
   
