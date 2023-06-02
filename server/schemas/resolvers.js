@@ -42,7 +42,7 @@ const resolvers = {
       if (context.user) {
         // Save a book to the user's savedBooks array
         const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
+          context.user._id,
           { $push: { savedBooks: newBook } },
           { new: true }
         );
