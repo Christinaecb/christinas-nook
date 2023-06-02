@@ -1,48 +1,34 @@
-// React setup
 import React from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
-// import the 'auth' setup
-import Auth from '../utils/auth';
+import Auth from '../utils/auth'; // import the 'auth' setup
 import { removeBookId } from '../utils/localStorage';
-// need these to refactor for GraphQL API
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';// need these to refactor for GraphQL API
 import { REMOVE_BOOK } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 
 const SavedBooks = () => {
-  // Fetch user data
-  const { loading, data } = useQuery(GET_ME);
-  // Mutation for removing a book
-  const [removeBook, { error }] = useMutation(REMOVE_BOOK);
+  const { loading, data } = useQuery(GET_ME);// Fetch user data
+  const [removeBook, { error }] = useMutation(REMOVE_BOOK); // Mutation for removing a book
 
-  // Retrieve user data from the query response
-  const userData = data?.me || {};
+  const userData = data?.me || {};  // Retrieve user data from the query response
 
-  // function to delete book from database
   const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
-    // try-catch block for error handling
     try {
-      // Remove the book from the database
-      const response = await removeBook({ variables: { bookId } });
-      console.log('Deleted record: ', response);
-      if (error) {
-        console.log(error);
+      const token = Auth.getToken(); // Retrieve the token from the authentication utility
+
+      if (!token) { // If the token is not available, return false
+        return false;
       }
-      // Remove the book from local storage
+
+      const { data } = await removeBook({ variables: { bookId } });  // Call the 'removeBook' function asynchronously, passing the 'bookId' as variables
+      console.log('Deleted record: ', data); // Log the 'data' object, which likely contains information about the deleted record
+
       removeBookId(bookId);
     } catch (err) {
-      // display any caught errors here
       console.error(err);
     }
   };
 
-  // Shows loading message while waiting for query response
   if (loading) {
     return <h2>LOADING...</h2>;
   }

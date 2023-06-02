@@ -24,8 +24,8 @@ const SignupForm = () => {
 
     // check if form has everything (as per react-bootstrap docs)
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
+    if (form.checkValidity() === false) {  // If the form is invalid, the 'checkValidity()' method returns 'false'
+      event.stopPropagation(); // If the form is invalid, stop the event propagation to prevent further handling
     } else {
       try {
         const { data } = await addUser({
