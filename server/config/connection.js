@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/googlebooks',
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/christinas-nook',
   {
     useNewUrlParser: true, // Use new URL parser
     useUnifiedTopology: true, // Use new server discovery and monitoring engine
